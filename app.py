@@ -119,35 +119,18 @@ def visualizar_pedidos():
         st.error("Senha incorreta!")
 
 
-def painel_delivery():
-    """Tela para o dono visualizar pedidos no painel de delivery."""
-    st.title("📋 Painel de Delivery")
-    
-    # Filtro de status
-    status_filtro = st.selectbox("Filtrar pedidos por status", ["Aguardando", "Em Preparo", "Saiu para Entrega", "Concluído"])
-    
-    pedidos = buscar_pedidos(status_filtro)
-    if pedidos:
-        for pedido in pedidos:
-            ticket_numero, nome_cliente, endereco, cep, telefone, itens, total, forma_pagamento, status = pedido
-            st.text_area(f"Pedido {ticket_numero}", f"Nome: {nome_cliente}\nEndereço: {endereco}\nCep: {cep}\nTelefone: {telefone}\nItens: {itens}\nTotal: R$ {total:.2f}\nPagamento: {forma_pagamento}\nStatus: {status}", height=150)
-    else:
-        st.write("Nenhum pedido encontrado com esse status.")
-
 def main():
     st.set_page_config(page_title="Restaurante", layout="centered")
     if "carrinho" not in st.session_state:
         st.session_state["carrinho"] = []
     
-    menu_opcao = st.sidebar.radio("Navegação", ["Cardápio", "Pedidos (Dono)", "Painel Delivery"])
+    menu_opcao = st.sidebar.radio("Navegação", ["Cardápio", "Pedidos (Dono)"])
     
     if menu_opcao == "Cardápio":
         menu()
     elif menu_opcao == "Pedidos (Dono)":
         visualizar_pedidos()
-    elif menu_opcao == "Painel Delivery":
-        painel_delivery()
-    
+
     st.markdown("---")
     st.markdown("Desenvolvido por Nelson Alves")
     st.markdown("Siga-nos no Instagram: [@nelsonalvz_12](https://instagram.com/nelsonalvz_12)")
